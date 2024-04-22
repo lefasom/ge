@@ -1,0 +1,23 @@
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (user of users; track user._id) {
+        <tr>
+            <td>{{ user._id }}</td>
+            <td>{{ user.name }}</td>
+            <td>
+                <button (click)="deleteUser(user._id)">Eliminar</button>
+                <button [routerLink]="['/detail', user._id]">Ver detalle</button>
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table>

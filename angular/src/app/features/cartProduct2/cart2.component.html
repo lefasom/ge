@@ -1,0 +1,25 @@
+<h3>Cart 2</h3>
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (product of cartStore.products(); track product._id) {
+        <tr>
+            <td>{{ product._id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>
+                <button (click)="deleteProduct(product)">Eliminar</button>
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,31 @@
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" [formControl]="nameControl">
+        <!-- Modificado: Enlazamos el FormControl correspondiente al campo "nombre" -->
+        <!-- Mostramos el mensaje de error si el campo "nombre" es inválido y ha sido tocado -->
+        <div *ngIf="nameControl.invalid && nameControl.touched">
+            <div class="error">El nombre es requerido.</div>
+        </div>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" [formControl]="emailControl">
+        <!-- Modificado: Enlazamos el FormControl correspondiente al campo "email" -->
+        <!-- Mostramos el mensaje de error si el campo "email" es inválido y ha sido tocado -->
+        <div *ngIf="emailControl.invalid && emailControl.touched">
+            <div class="error">El email es requerido.</div>
+            <div class="error">El email no es válido.</div>
+        </div>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="text" id="password" [formControl]="passwordControl">
+        <!-- Modificado: Enlazamos el FormControl correspondiente al campo "telefono" -->
+        <!-- Mostramos el mensaje de error si el campo "telefono" es inválido y ha sido tocado -->
+        <div *ngIf="passwordControl.invalid && passwordControl.touched">
+            <div class="error">El teléfono debe contener 10 dígitos.</div>
+        </div>
+    </div>
+    <button type="submit">Enviar</button>
+</form>

@@ -1,0 +1,16 @@
+<h3>Datos del UserStore</h3>
+
+<table class="user-table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (user of _userStore.users(); track user._id) {
+        <tr>
+            <td>{{ user.name }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
