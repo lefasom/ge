@@ -2,6 +2,7 @@ import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { Tokens, UserService } from '../../core/services/user.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
   nameControl!: FormControl;
   passwordControl!: FormControl;
 
-
+  private _router = inject(Router)
   private _formBuilder = inject(FormBuilder)
   private _userService = inject(UserService)
 
@@ -40,24 +41,29 @@ export class RegisterComponent implements OnInit {
       password: this.passwordControl,
     });
 
-    this.emailControl.valueChanges.subscribe(value => {
-      // Si el valor está vacío, establecer statusEmail en false
-      if (!value.trim()) {
-        this.statusEmail.set(false);
-      }
-    });
   }
 
   newUser(): void {
     this._userService.createUser(this.formulario.value).subscribe({
-      next: (data:Tokens) => {
+      next: (data: Tokens) => {
         if (data.error === 'Email already exists') {
           // Manejar el error de correo electrónico existente
           this.statusEmail.set(true)
+
         } else {
           // Si no hay error, el registro fue exitoso
-          console.log("RECIBO TOKEN : ",data)
+          console.log("RECIBO TOKEN : ", data)
+          // this.statusEmail.set(false)
+          this.formulario.reset()
+          this._router.navigate(['login'])
+        }
+      },
+      error: (e) => {
+        if (this.emailControl.value == "") {
           this.statusEmail.set(false)
+
+        } else {
+          this.statusEmail.set(true);
         }
       }
     })

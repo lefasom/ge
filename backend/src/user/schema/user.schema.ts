@@ -13,7 +13,9 @@ export class User {
 
     @Prop()
     password: string;
-
+    
+    @Prop() // Agrega este decorador para el campo hashedRt
+    hashedRt: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

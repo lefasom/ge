@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../../core/services/user.service';
+import { Tokens, UserService } from '../../core/services/user.service';
 import { UserStore } from '../../core/store/user.store';
 import { Router } from '@angular/router';
 
@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
   this._userService.logInUser(this.formulario.value).subscribe({
     next: (user) => {
       console.log(user)
-      this._userStore.getToUser(user)
+      const tokenString = JSON.stringify(user);
+      localStorage.setItem("Tokens",tokenString)
+      this._userStore.getToUser(user.user)
       this._router.navigate([''])
     },
     error: (err) => {

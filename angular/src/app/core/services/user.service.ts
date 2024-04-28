@@ -5,9 +5,12 @@ import { User } from '../models/user.model';
 
 const baseUrl = 'http://localhost:3000/auth';
 export type Tokens = {
+  user: User;
   error: string;
-  access_token: string;
-  refresh_token: string;
+  tokens: {
+    access_token: string;
+    refresh_token: string;
+  }
 };
 @Injectable({
   providedIn: 'root'
@@ -21,9 +24,13 @@ export class UserService {
   logInUser(data: any): Observable<Tokens> {
 
     return this.http.post<Tokens>(`${baseUrl}/login`, data);
- }
-  // refreshUser(data: any): Observable<any> {
-  //   data={"msj":"probando post"}
-  //   return this.http.post(`${baseUrl}/refresh`,data);
-  // }
+  }
+  refreshUser(tokens: any): Observable<any> {
+    console.log(tokens)
+    return this.http.post(`${baseUrl}/refresh`,tokens);
+  }
+  logOut(userId:any): Observable<any> {
+    console.log(userId)
+    return this.http.post(`${baseUrl}/logout`,userId)
+  }
 }

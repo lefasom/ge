@@ -11,12 +11,12 @@
         </div>
 
         @if (statusEmail()) {
-          <div class="mt-2 text-red-500 text-sm">email already exists</div>
+        <div class="mt-2 text-red-500 text-sm">email already exists</div>
         }
-        @if (emailControl.invalid) {
-          <div class="mt-2 text-red-500 text-sm">email Invalid</div>
+        @if (emailControl.invalid && emailControl.touched) {
+        <div class="mt-2 text-red-500 text-sm">email Invalid</div>
         }
-    
+
       </div>
 
       <div>
@@ -38,8 +38,8 @@
             autocomplete="current-password" required
             class="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
-        @if (passwordControl.invalid) {
-          <div class="mt-2 text-red-500 text-sm">at least 4 characters </div>
+        @if (passwordControl.invalid && passwordControl.touched) {
+        <div class="mt-2 text-red-500 text-sm">at least 4 characters </div>
         }
       </div>
 

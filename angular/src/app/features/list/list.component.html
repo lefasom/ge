@@ -1,12 +1,6 @@
-<table class="user-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
 
-    </tbody>
-</table>
+<p>{{_userStore.user.email()}}</p>
+<hr>
+<p>{{_userStore.user.name()}}</p>
+
+<button (click)="logout()">Log out</button>

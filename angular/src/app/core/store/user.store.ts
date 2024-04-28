@@ -11,7 +11,6 @@ const initialState: UserState = {
             "_id": "",
             "name": "",
             "email": "",
-            "password": "",
         }
     ,
 }

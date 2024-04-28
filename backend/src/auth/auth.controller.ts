@@ -14,32 +14,27 @@ export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   @Post('register')
-  registerUser(@Body() registerAuthDto: RegisterAuthDto){
+  registerUser(@Body() registerAuthDto: RegisterAuthDto) {
     return this.authService.register(registerAuthDto);
   }
 
   @Post('login')
-  loginUser(
-    @Body() loginAuthDto: LoginAuthDto,
-    @Res({ passthrough: true }) res: Response
-  ) {
+  loginUser(@Body() loginAuthDto: LoginAuthDto) {
+    return this.authService.login(loginAuthDto);
+  }
+  @Post('refresh')
+  refreshToken(@Body() tokens: any) {
+    return this.authService.refreshTokens({ userId: tokens.user._id, rt: tokens.tokens.refresh_token });
+  }
 
-    return this.authService.login(loginAuthDto, res);
-
+  @Post('logout')
+  async logout(@Body() userId: any) {
+    try {
+      await this.authService.logout(userId);
+      return { message: 'Logout successful' };
+    } catch (error) {
+      console.error('Error during logout:', error);
+      throw error;
+    }
   }
-  // Pruebas cookie
-  @Get('login')
-  createCookie(@Req() request:Request) {
-    console.log(request.cookies)
-  }
-  @Get('delete_cookie')
-  deleteCookie(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie("user_token")
-    res.clearCookie("token")
-    console.log("borro cookies")
-  }
-  // @Get('cookie')
-  // readCookie(@Req() request: Request) {
-  //   console.log(request.cookies)
-  // }
 }
