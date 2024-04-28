@@ -1,5 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../core/services/user.service';
+import { UserStore } from '../../core/store/user.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +16,10 @@ export class LoginComponent implements OnInit {
   emailControl!: FormControl;
   passwordControl!: FormControl;
 
+  private _router = inject(Router)
   private _formBuilder = inject(FormBuilder)
-
+  private _userService = inject(UserService)
+  private _userStore = inject(UserStore);
   ngOnInit(): void {
     this.emailControl = new FormControl('');
     this.passwordControl = new FormControl('');
@@ -23,7 +28,18 @@ export class LoginComponent implements OnInit {
       password: this.passwordControl,
     });
   }
+
+  
   logIn(): void {
-    console.log(this.formulario.value)
+  this._userService.logInUser(this.formulario.value).subscribe({
+    next: (user) => {
+      console.log(user)
+      this._userStore.getToUser(user)
+      this._router.navigate([''])
+    },
+    error: (err) => {
+      console.log(err)
+    }
+  })
   }
 }

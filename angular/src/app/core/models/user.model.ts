@@ -1,4 +1,4 @@
-export class IUser {
+export class User {
     _id?: string;
     name: string;
     email: string;
@@ -10,3 +10,10 @@ export class IUser {
         this.password = '';
     }
 }
+
+export interface IUser {
+    name: string;
+    email: string;
+    password: string;
+}
+

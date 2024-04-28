@@ -8,8 +8,8 @@ export const routes: Routes = [
 
     },
     {
-        path: 'form',
-        loadChildren: () => import('./features/form/form.routes').then(m => m.FORM_ROUTES),
+        path: 'register',
+        loadChildren: () => import('./features/register/register.routes').then(m => m.REGISTER_ROUTES),
     },
     {
         path: 'login',
